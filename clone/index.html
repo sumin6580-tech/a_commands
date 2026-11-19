@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>디자인 관점으로 콘텐츠를 기획하고 비즈니스와 연결합니다</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #111111;
+    --muted: #6b6b6b;
+    --accent: #ffe100;
+    --accent-hover: #ffd600;
+    --radius-pill: 999px;
+    --serif: "Noto Serif KR", "Georgia", serif;
+    --sans: "Noto Sans KR", system-ui, -apple-system, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f0f10;
+      --fg: #f5f5f5;
+      --muted: #9a9a9a;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f0f10;
+    --fg: #f5f5f5;
+    --muted: #9a9a9a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--sans);
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    text-align: center;
+    padding: clamp(96px, 16vh, 160px) 16px clamp(56px, 10vh, 96px);
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(30px, 5.4vw, 56px);
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    word-break: keep-all;
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 48px;
+    padding: 18px 34px;
+    border: 0;
+    border-radius: var(--radius-pill);
+    background: var(--accent);
+    color: #111;
+    font: 500 17px/1 var(--sans);
+    cursor: pointer;
+    text-decoration: none;
+    transition: background .2s ease, transform .2s ease;
+  }
+  .cta:hover { background: var(--accent-hover); transform: translateY(-2px); }
+  .cta:focus-visible { outline: 3px solid #111; outline-offset: 3px; }
+  .cta svg { width: 20px; height: 20px; }
+
+  /* ---------- Strip ---------- */
+  .strip-wrap {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 8px;
+  }
+  .strip {
+    display: flex;
+    gap: 0;
+    width: max-content;
+    animation: scroll 60s linear infinite;
+  }
+  .strip-wrap:hover .strip { animation-play-state: paused; }
+  .card {
+    flex: 0 0 auto;
+    width: clamp(180px, 22vw, 320px);
+    aspect-ratio: 3 / 4.2;
+    position: relative;
+    overflow: hidden;
+    background: var(--c, #ddd);
+  }
+  .card::after {
+    content: attr(data-label);
+    position: absolute;
+    left: 14px;
+    bottom: 12px;
+    font: 700 13px/1.2 var(--sans);
+    color: var(--t, #fff);
+    opacity: .85;
+    letter-spacing: .04em;
+  }
+  .card .shape {
+    position: absolute;
+    inset: 0;
+    background: var(--art);
+  }
+  .card:hover .shape { transform: scale(1.04); }
+  .card .shape { transition: transform .6s ease; }
+
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .strip { animation: none; }
+    .strip-wrap { overflow-x: auto; }
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding-top: 72px; }
+    .cta { margin-top: 36px; padding: 16px 28px; font-size: 16px; }
+    .card { width: 170px; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <h1>디자인 관점으로 콘텐츠를<br>기획하고 비즈니스와 연결합니다</h1>
+  <a class="cta" href="#projects">
+    프로젝트 보기
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M5 12h14M13 6l6 6-6 6"/>
+    </svg>
+  </a>
+</section>
+
+<section class="strip-wrap" id="projects" aria-label="프로젝트 미리보기">
+  <div class="strip" id="strip"></div>
+</section>
+
+<script>
+  // 이미지 대신 포스터 느낌의 CSS 아트 카드로 구성 (실제 이미지 교체 가능)
+  const items = [
+    { label: "DESIGN 50TH",    c: "#e9e6df", t: "#111", art: "linear-gradient(180deg,#c9372c 0 45%,#8c8f8a 45% 60%,#2e2e2e 60%)" },
+    { label: "SEOUL DESIGN",   c: "#ffffff", t: "#111", art: "radial-gradient(circle at 30% 30%,#ff3b8d 0 12%,transparent 13%),radial-gradient(circle at 70% 60%,#2b6cff 0 18%,transparent 19%),repeating-linear-gradient(45deg,#ff7a1a 0 10px,#ffe600 10px 20px)" },
+    { label: "HEY POP",        c: "#7d8f71", t: "#fff", art: "linear-gradient(180deg,#e6e2d6 0 62%,#2f3d2c 62% 100%)" },
+    { label: "LIVING NOW",     c: "#7a4a2b", t: "#fff", art: "radial-gradient(ellipse at 50% 45%,#9fd9e8 0 22%,#f3e7d3 23% 40%,transparent 41%),linear-gradient(180deg,#8a5a3c,#4b2e1d)" },
+    { label: "BOLD",           c: "#2a9be0", t: "#fff", art: "linear-gradient(135deg,#b10f7a 0 25%,#2bb34a 25% 45%,#ff6a00 45% 65%,#e6252b 65% 100%)" },
+    { label: "LUXURY",         c: "#f4f1ec", t: "#8b1e2e", art: "linear-gradient(180deg,#f4f1ec 0 25%,#1d1d1d 25% 70%,#f4f1ec 70%)" },
+    { label: "FIELD",          c: "#21395a", t: "#fff", art: "linear-gradient(180deg,#dfe8f2 0 40%,#2f5b8a 40% 100%)" }
+  ];
+
+  const strip = document.getElementById("strip");
+  // 무한 스크롤을 위해 두 번 렌더링
+  const all = [...items, ...items];
+  strip.innerHTML = all.map(it => `
+    <article class="card" data-label="${it.label}" style="--c:${it.c};--t:${it.t}">
+      <div class="shape" style="--art:${it.art}"></div>
+    </article>`).join("");
+</script>
+
+</body>
+</html>
